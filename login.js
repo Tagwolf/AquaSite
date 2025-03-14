@@ -1,28 +1,24 @@
-async function checkSession() {
-    const response = await fetch('/api/check-auth');
-    const data = await response.json();
-
-    if (data.authenticated) {
-        window.location.href = '/dashboard';
-    }
-}
-
-async function login() {
+function login() {
+    // Hole die eingegebenen Werte
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    });
+    // Hole die gespeicherten Benutzerdaten aus dem localStorage
+    const userData = JSON.parse(localStorage.getItem('userData'));
 
-    const data = await response.json();
-    if (data.success) {
-        window.location.href = '/dashboard';
+    // Überprüfe, ob Benutzerdaten existieren
+    if (!userData) {
+        alert('No user found. Please register first.');
+        return;
+    }
+
+    // Überprüfe Benutzername und Passwort
+    if (userData.username === username && userData.password === password) {
+        alert('Login successful! Redirecting to dashboard...');
+
+        // Weiterleitung zur dashboard.html
+        window.location.href = 'dashboard.html';
     } else {
-        alert('Login failed!');
+        alert('Invalid username or password!');
     }
 }
-
-document.addEventListener('DOMContentLoaded', checkSession);

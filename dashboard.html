@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Aguacord</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Minecraft Bot Dashboard</h1>
+        
+        <div class="bot-control">
+            <h2>WaterBotCB1</h2>
+            <input type="text" id="waterBotCommand" placeholder="Enter command for WaterBotCB1">
+            <button onclick="sendCommand('WaterBotCB1')">Send Command</button>
+        </div>
+
+        <div class="bot-control">
+            <h2>M_N_C_Bot</h2>
+            <input type="text" id="mncBotCommand" placeholder="Enter command for M_N_C_Bot">
+            <button onclick="sendCommand('M_N_C_Bot')">Send Command</button>
+        </div>
+
+        <div class="activity-list">
+            <div class="activity-item">
+                <h3>WaterBotCB1</h3>
+                <p>Watered crops at 10:00 AM.</p>
+            </div>
+            <div class="activity-item">
+                <h3>M_N_C_Bot</h3>
+                <p>Mined 64 cobblestones at 11:30 AM.</p>
+            </div>
+            <!-- Weitere Aktivitäten können hier hinzugefügt werden -->
+        </div>
+    </div>
+
+    <script>
+        function sendCommand(botName) {
+            let commandInput;
+            if (botName === 'WaterBotCB1') {
+                commandInput = document.getElementById('waterBotCommand');
+            } else if (botName === 'M_N_C_Bot') {
+                commandInput = document.getElementById('mncBotCommand');
+            }
+
+            const command = commandInput.value;
+            if (command) {
+                alert(`Command sent to ${botName}: ${command}`);
+                // Hier könnten Sie den Befehl an den Server senden
+                commandInput.value = ''; // Eingabefeld leeren
+            } else {
+                alert('Please enter a command.');
+            }
+        }
+    </script>
+</body>
+</html>

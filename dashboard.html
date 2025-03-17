@@ -1,58 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Aguacord</title>
+    <title>Aquacord - Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="dashboard">
-        <h1>Minecraft Bot Dashboard</h1>
-        
-        <div class="bot-control">
-            <h2>WaterBotCB1</h2>
-            <input type="text" id="waterBotCommand" placeholder="Enter command for WaterBotCB1">
-            <button onclick="sendCommand('WaterBotCB1')">Send Command</button>
-        </div>
-
-        <div class="bot-control">
-            <h2>M_N_C_Bot</h2>
-            <input type="text" id="mncBotCommand" placeholder="Enter command for M_N_C_Bot">
-            <button onclick="sendCommand('M_N_C_Bot')">Send Command</button>
-        </div>
-
-        <div class="activity-list">
-            <div class="activity-item">
-                <h3>WaterBotCB1</h3>
-                <p>Watered crops at 10:00 AM.</p>
+    <div id="main-container">
+        <div id="sidebar">
+            <div id="user-info">
+                <h2>Your Code: <span id="user-code"></span></h2>
+                <div id="display-name"></div>
+                <button onclick="showAddFriendModal()" class="pulse-button">Add Friend</button>
+                <button onclick="logout()" class="pulse-button warning">Logout</button>
             </div>
-            <div class="activity-item">
-                <h3>M_N_C_Bot</h3>
-                <p>Mined 64 cobblestones at 11:30 AM.</p>
+            <div id="friend-requests">
+                <h3>Friend Requests</h3>
+                <div id="requests-list"></div>
             </div>
-            <!-- Weitere Aktivitäten können hier hinzugefügt werden -->
+            <div id="friends-list">
+                <h3>Friends</h3>
+                <input type="text" id="friend-search" placeholder="Search friends...">
+                <div id="friends"></div>
+            </div>
+        </div>
+        <div id="chat-container">
+            <div id="chat-messages"></div>
+            <div id="chat-input">
+                <input type="text" id="message-input" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
         </div>
     </div>
 
+    <!-- Add Friend Modal -->
+    <div id="add-friend-modal" class="modal">
+        <div class="modal-content glass-effect">
+            <h2>Add Friend</h2>
+            <input type="text" id="friend-code" placeholder="Enter friend code" class="modern-input">
+            <button onclick="sendFriendRequest()" class="pulse-button">Send Request</button>
+            <button onclick="closeModal()" class="link-button">Cancel</button>
+        </div>
+    </div>
     <script>
-        function sendCommand(botName) {
-            let commandInput;
-            if (botName === 'WaterBotCB1') {
-                commandInput = document.getElementById('waterBotCommand');
-            } else if (botName === 'M_N_C_Bot') {
-                commandInput = document.getElementById('mncBotCommand');
-            }
-
-            const command = commandInput.value;
-            if (command) {
-                alert(`Command sent to ${botName}: ${command}`);
-                // Hier könnten Sie den Befehl an den Server senden
-                commandInput.value = ''; // Eingabefeld leeren
-            } else {
-                alert('Please enter a command.');
-            }
-        }
+        // Anti-DevTools
+        (function () {
+            setInterval(() => {
+                function detect() {
+                    const d = new Date();
+                    debugger;
+                    return new Date() - d > 100;
+                }
+                if (detect()) {
+                    document.body.innerHTML = '';
+                    window.location.href = '/';
+                }
+            }, 100);
+        })();
     </script>
+    <script src="js/dashboard.min.js"></script>
 </body>
+
 </html>
